@@ -1,0 +1,21 @@
+.modal-dialog {
+    height: 600px;
+}
+.modal-content button{
+    width: auto;
+    height: auto;
+}
+
+#order_ {
+    display: none;
+}
+
+
+#content_regist {
+    width: 100%;
+    height: 1000px;
+}
+
+.tbl_regist {
+    width: 100%;
+}

@@ -1,0 +1,17 @@
+{% extends 'cms_web/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/regist.css' %}">
+{% endblock css %}
+{% block js %}{% endblock js %}
+{% block title %}顧客登録{% endblock title %}
+
+{% block content %}
+<h1>メンバー登録フォーム</h1>
+<form method="POST" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">送信</button>
+</form>
+<p>{{ message }}</p>
+{% endblock content %}

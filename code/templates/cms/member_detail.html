@@ -1,0 +1,56 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/member_detail.css' %}">
+{% endblock css %}
+{% block title %}顧客情報詳細{% endblock title %}
+
+{% block content %}
+<h1>顧客情報詳細画面</h1>
+<hr>
+<table>
+    <tr id="content">
+        <th id="lbl_name">名前：</th>
+        <th id="lbl_name_read">フリガナ：</th>
+        <th id="lbl_address">住所：</th>
+        <th id="lbl_tel">TEL：</th>
+        <th id="lbl_email">メールアドレス：</th>
+        <th id="lbl_age">年齢：</th>
+        <th id="lbl_remark">備考：</th>
+        <td id="txt_name">{{ member.name }}</td>
+        <td id="txt_name_read">{{ member.name_read }}</td>
+        <td id="txt_address">
+            {{ member.prefectures }}{{ member.address_line1 }}{{ member.address_line2 }}{{ member.house }}</td>
+        <td id="txt_tel">{{ member.telephone }}</td>
+        <td id="txt_email">{{ member.email }}</td>
+        <td id="txt_age">{{ member.age }}歳</td>
+        <td id="txt_remark">{{ member.remark }}</td>
+    </tr>
+</table>
+<hr>
+<div>
+    <a class="btn btn-primary" href="{% url 'cms:update' member.pk %}">編集</a>
+    <a class="btn btn-danger" href="{% url 'cms:delete' member.pk %}">削除</a>
+</div>
+<hr>
+<h1>Menu</h1>
+
+{% for orders in order_list %}
+<div>
+    <li>{{ orders.order_day }}
+        <ul>
+            <p>飲み物</p>
+            {% for drinks in drink_list %}
+            {% if orders.title == drinks.order.title %}
+            <ul>{{ drinks.drink_name }}　×　{{ drinks.drink_num }}</ul>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+        <ul>前菜</ul>
+        <ul>メイン</ul>
+        <ul>デザート</ul>
+    </li>
+</div>
+{% endfor %}
+{% endblock content %}

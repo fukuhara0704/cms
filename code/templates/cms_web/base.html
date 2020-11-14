@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/web_app.css' %}">
+    {% block css %}{% endblock css %}
+    {% block js %}{% endblock js %}
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+    <header>
+        <a href="{% url 'cms_web:index' %}">
+            <h1>顧客管理システム</h1>
+        </a>
+    </header>
+    <nav>
+        <li class="li_1">
+            <a href="{% url 'cms_web:regist' %}"><button>顧客登録</button></a>
+        </li>
+        <li class="li_2">
+            <a href="{% url 'cms_web:list' %}"><button>顧客一覧</button></a>
+        </li>
+        <li class="li_3">
+            <a href="{% url 'cms_web:search' %}"><button>顧客検索</button></a>
+        </li>
+    </nav>
+    <main>
+        {% block content %} {% endblock content %}
+    </main>
+</body>
+
+</html>

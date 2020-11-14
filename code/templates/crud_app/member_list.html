@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>ListViewサンプル</title>
+</head>
+
+<body>
+    <h1>ListView一覧画面</h1>
+    <table border="1">
+        <tr>
+            <th>name</th>
+            <th>詳細</th>
+        </tr>
+        {% for member in object_list %}
+        <tr>
+            <td>{{ member.name }}</td>
+            <th><a href="{% url 'crud_app:detail' member.pk %}">詳細</a></th>
+            <th><a href="{% url 'crud_app:update' member.pk %}">編集</a></th>
+            <th><a href="{% url 'crud_app:delete' member.pk %}">削除</a></th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

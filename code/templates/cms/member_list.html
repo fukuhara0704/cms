@@ -1,0 +1,133 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock css %}
+{% block js%}
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.ja.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/member_list.js' %}"></script>
+{% endblock js%}
+{% block title %}顧客一覧{% endblock title %}
+
+{% block content %}
+
+<h1>顧客一覧画面</h1>
+<hr>
+<form id="myform" action="" method="GET">
+    <div class="content">
+        <div class="form-inline" id="user_name">
+            名前：<input class="form-control" name="name" value="{{ request.GET.name }}" type="text">
+            フリガナ：<input class="form-control" name="nameRead" value="{{ request.GET.nameRead }}" type="text">
+        </div>
+        <div class="form-inline" id="user_info">
+            連絡先：<input class="form-control" value="" type="text">
+            住所：<input class="form-control" value="" type="text">
+        </div>
+        <div class="form-inline" id="ages">
+            年齢：
+            <input type="checkbox" id="age_1" name="age" value="20">20代
+            <input type="checkbox" id="age_2" name="age" value="30">30代
+            <input type="checkbox" id="age_3" name="age" value="40">40代
+            <input type="checkbox" id="age_4" name="age" value="50">50代
+            <input type="checkbox" id="age_5" name="age" value="60">60代
+        </div>
+        <div class="form-inline" id="visit_num">
+            来店回数：
+            <input type="checkbox" id="vitNum_1" name="visitNum" value="1">1回
+            <input type="checkbox" id="vitNum_2" name="visitNum" value="2">2回
+            <input type="checkbox" id="vitNum_3" name="visitNum" value="3">3回
+            <input type="checkbox" id="vitNum_4" name="visitNum" value="4">4回
+            <input type="checkbox" id="vitNum_5" name="visitNum" value="5">5回以上
+        </div>
+
+        <div class="form-inline" id="la_vi_date">
+            <!-- ここにカレンダー表示用のテキストボックスを追加 -->
+            直近の来店日：<input type="text" class="form-control" id="latest_visit_date" name="latestVisitDay"
+                value="{{ request.GET.latestVisitDay }}">
+        </div>
+        <div class="form-inline" id="visit_date_period">
+            <!-- ここにカレンダー表示用のテキストボックスを追加 -->
+            来店日期間：<input type="text" class="form-control" id="before_visit_date" name="" value="">
+            ～<input type="text" class="form-control" id="after_visit_date" name="" value="">
+        </div>
+        <div id="menus">
+            <label id="lbl_course">コース</label>
+            <label id="lbl_sarada">前菜</label>
+            <label id="lbl_main">メイン</label>
+            <label id="lbl_desert">デザート</label>
+            <label id="lbl_drink">飲み物</label>
+            <select id="sel_course" name="category">
+                <option value="0">選択してください</option>
+                {% for good in goods_list %}
+                {% if good.category.category_name == "コース" %}
+                <option value="{{ good.pk }}">{{ good.goods_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <select id="sel_sarada" name="goods">
+                <option value="0">選択してください</option>
+                {% for good in goods_list %}
+                {% if good.category.category_name == "前菜" %}
+                <option value="{{ good.pk }}">{{ good.goods_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <select id="sel_main" name="num">
+                <option value="0">選択してください</option>
+                {% for good in goods_list %}
+                {% if good.category.category_name == "メイン" %}
+                <option value="{{ good.pk }}">{{ good.goods_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <select id="sel_desert" name="num">
+                <option value="0">選択してください</option>
+                {% for good in goods_list %}
+                {% if good.category.category_name == "デザート" %}
+                <option value="{{ good.pk }}">{{ good.goods_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <select id="sel_drink" name="num">
+                <option value="0">選択してください</option>
+                {% for good in goods_list %}
+                {% if good.category.category_name == "飲み物" %}
+                <option value="{{ good.pk }}">{{ good.goods_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="" id="btn_search">
+            <button class=" btn btn-primary" type="submit">検索する</button>
+        </div>
+    </div>
+</form>
+<hr>
+<table id="tbl_list"" border=" 1">
+    <tr>
+        <th>名前</th>
+        <th>フリガナ</th>
+        <th>誕生日</th>
+        <th>年齢</th>
+        <th>出身県</th>
+        <th>性別</th>
+        <th>来店数</th>
+        <th>直近の来店日</th>
+    </tr>
+    {% for member in members %}
+    <tr>
+        <td><a href="{% url 'cms:detail' member.pk%}">{{ member.name }}</a></td>
+        <td>{{ member.name_read }}</td>
+        <td>{{ member.birth_day }}</td>
+        <td>{{ member.age }}歳</td>
+        <td>{{ member.prefectures }}</td>
+        <td name="gender">{{ member.gender }}</td>
+        <td>{{ member.visit_num }}回</td>
+        <td>{{ member.latest_visit_day }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

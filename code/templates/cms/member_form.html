@@ -1,0 +1,116 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/member_form.css' %}">
+{% endblock css %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/member_form.js' %}"></script>
+{% endblock js %}
+{% block title %}顧客登録{% endblock title %}
+
+{% block content %}
+
+<h1>新規顧客登録画面</h1>
+<hr>
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="content">
+        <li class="li_t1">
+            名前
+        </li>
+        <li class="li_d1">
+            <input id="name" type="text" class="form-control">
+        </li>
+        <li class="li_t2">
+            フリガナ
+        </li>
+        <li class="li_d2">
+            <input id="name_read" type="text" class="form-control">
+        </li>
+        <li class="li_t3">
+            性別
+        </li>
+        <li class="li_d3">
+            <select id="ageArea" class="form-control">
+                <option value="0">選択してください</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+                <option value="3">その他</option>
+            </select>
+        </li>
+        <li class="li_t4">
+            生年月日
+        </li>
+        <li class="li_d4 form-inline">
+            <input id="year" type="text" maxlength="4" class="form-control">年
+            <input id="month" type="text" maxlength="2" class="form-control">月
+            <input id="day" type="text" maxlength="2" class="form-control">日
+        </li>
+        <li class="li_t5">
+            年齢
+        </li>
+        <li class="li_d5 form-inline">
+            <input id="age" type="text" class="form-control">歳
+        </li>
+        <li class="li_t6">
+            郵便番号
+        </li>
+        <li class="li_d6 form-inline">
+            <input id="zipCode1" type="text" maxlength="3" class="form-control">-
+            <input id="zipCode2" type="text" maxlength="4" class="form-control">
+            <input id="searchBtn" type="button" class="btn btn-primary" value="住所検索">
+        </li>
+        <li class="li_ti_pre">
+            都道府県
+        </li>
+        <li class="li_txt_pre">
+            <input id="prefectures" type="text" class="form-control">
+        </li>
+
+        <li class="li_t7">
+            住所1
+        </li>
+        <li class="li_d7">
+            <input id="address1" type="text" class="form-control">
+        </li>
+        <li class="li_t8">
+            住所2
+        </li>
+        <li class="li_d8">
+            <input id="address2" type="text" class="form-control">
+        </li>
+        <li class="li_t9">
+            建物名・部屋番号
+        </li>
+        <li class="li_d9">
+            <input id="house" type="text" class="form-control">
+        </li>
+        <li class="li_t10">
+            電話番号
+        </li>
+        <li class="li_d10">
+            <input id="telephone" type="text" class="form-control">
+        </li>
+        <li class="li_t11">
+            メールアドレス
+        </li>
+        <li class="li_d11">
+            <input id="email" type="email" class="form-control">
+        </li>
+        <li class="li_t12">
+            備考
+        </li>
+        <li class="li_d12">
+            <input id="remark" type="text" class="form-control">
+        </li>
+    </div>
+    <div>
+        <input class="btn btn-primary" type="submit" id="button" value="登録">
+    </div>
+    {% for field in form %}
+    {{ field.as_hidden }}
+    {% endfor %}
+</form>
+
+{% endblock content %}

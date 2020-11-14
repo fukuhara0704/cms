@@ -1,0 +1,155 @@
+div.content{
+    width: 100%;
+    margin: 0 auto;
+    list-style: none;
+    display: grid;
+    grid-template:
+        "...  ...    ..." 10px
+        "...  li_t1  ..." 25px
+        "...  ...    ..."
+        "...  li_d1  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t2  ..." 25px
+        "...  ...    ..."
+        "...  li_d2  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t3  ..." 25px
+        "...  ...    ..."
+        "...  li_d3  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t4  ..." 25px
+        "...  ...    ..."
+        "...  li_d4  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t5  ..." 25px
+        "...  ...    ..."
+        "...  li_d5  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t6  ..." 25px
+        "...  ...    ..."
+        "...  li_d6  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_ti_pre  ..." 25px
+        "...  ...    ..." 10px
+        "...  li_txt_pre  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t7  ..." 25px
+        "...  ...    ..."
+        "...  li_d7  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t8  ..." 25px
+        "...  ...    ..."
+        "...  li_d8  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t9  ..." 25px
+        "...  ...    ..."
+        "...  li_d9  ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t10 ..." 25px
+        "...  ...    ..."
+        "...  li_d10 ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t11 ..." 25px
+        "...  ...    ..."
+        "...  li_d11 ..." 1fr
+        "...  ...    ..." 10px
+        "...  li_t12 ..." 25px
+        "...  ...    ..."
+        "...  li_d12 ..." 1fr
+        "...  ...    ..." 10px
+        / 10px 1fr 10px;
+}
+
+li.li_d1 {
+    grid-area: li_d1;
+}
+li.li_d2 {
+    grid-area: li_d2;
+}
+li.li_d3 {
+    grid-area: li_d3;
+}
+li.li_d4 {
+    grid-area: li_d4;
+}
+li.li_d5 {
+    grid-area: li_d5;
+}
+li.li_d6 {
+    grid-area: li_d6;
+}
+li.li_d7 {
+    grid-area: li_d7;
+}
+li.li_d8 {
+    grid-area: li_d8;
+}
+li.li_d9 {
+    grid-area: li_d9;
+}
+li.li_d10 {
+    grid-area: li_d10;
+}
+li.li_d11 {
+    grid-area: li_d11;
+}
+li.li_d12 {
+    grid-area: li_d12;
+}
+li.li_txt_pre {
+    grid-area: li_txt_pre;
+}
+/** ラベル **/
+li.li_t1 {
+    grid-area: li_t1;
+}
+li.li_t2 {
+    grid-area: li_t2;
+}
+li.li_t3 {
+    grid-area: li_t3;
+}
+li.li_t4 {
+    grid-area: li_t4;
+}
+li.li_t5 {
+    grid-area: li_t5;
+}
+li.li_t6 {
+    grid-area: li_t6;
+}
+li.li_t7 {
+    grid-area: li_t7;
+}
+li.li_t8 {
+    grid-area: li_t8;
+}
+li.li_t9 {
+    grid-area: li_t9;
+}
+li.li_t10 {
+    grid-area: li_t10;
+}
+li.li_t11 {
+    grid-area: li_t11;
+}
+li.li_t12 {
+    grid-area: li_t12;
+}
+li.li_ti_pre {
+    grid-area: li_ti_pre;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

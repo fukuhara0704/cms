@@ -1,0 +1,224 @@
+{% extends 'cms/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/menu_regist.css' %}">
+{% endblock css %}
+{% block js%}
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-datepicker.ja.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/menu_regist.js' %}"></script>
+{% endblock js%}
+{% block title %}顧客検索{% endblock title %}
+{% block content %}
+<div class="form-inline">
+    <h1>注文登録画面</h1>
+    <input type="button" class="btn btn-primary" value="登録" onclick="regist(this)">
+</div>
+<hr>
+<div class="form-inline">
+    <input type="button" value="会員検索" class="btn btn-info" onclick="pop(this)">
+</div>
+<ul id="search_member">
+    <!-- Ajaxで追加される -->
+</ul>
+<hr>
+<div>
+    <label>来店日:</label>
+    <input type="text" id="visit_date">
+</div>
+<div>
+    <label>来店人数:</label>
+    <input type="text" id="visit_num">
+</div>
+<div>
+    注文メニュー
+</div>
+<div>
+    <label>①カテゴリ</label>
+    <label>②商品</label>
+    <label>③個数</label>
+</div>
+<div>
+    <select name="category" onChange="get_goods()">
+        <option value="0">選択してください</option>
+        {% for category in category_list %}
+        <option value="{{ category.pk }}">{{ category.category_name }}</option>
+        {% endfor %}
+    </select>
+    <select id="goods" name="goods">
+        <option value="0">選択してください</option>
+        {% for good in goods %}
+        <option value="{{ good.pk }}">{{ good.goods_name }}</option>
+        {% endfor %}
+    </select>
+    <select name="num">
+        <option value="0">選択してください</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <input type="button" class="btn btn-success" id="add" value="追加">
+</div>
+<hr>
+<div id="contentRegist_0" class="form-inline" hidden>
+    <input type="button" id="btnEdt_0" class="btn btn-sm btn-success" value="編集">
+    <input type="button" id="btnDel_0" class="btn btn-sm btn-danger" value="削除">
+    <p id="category_0">1</p>
+    <p id="goods_0">1</p>
+    <p id="num_0">1</p>
+</div>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="保存">
+</form>
+<!-- hidden -->
+<table id="order_" class="tbl_regist">
+    <tr>
+        <td id="tdCategory_"></td>
+        <td id="tdGoods_"></td>
+        <td id="tdNum_"></td>
+        <td>
+            <input type="button" class="btn btn-sm btn-success" id="btnEdit_" value="編集">
+        </td>
+        <td>
+            <input type="button" class="btn btn-sm btn-danger" id="btnDel_" value="削除">
+        </td>
+    </tr>
+</table>
+<!-- hidden -->
+<div id="content_regist"></div>
+<!-- モーダルウィンドウの中身 -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex flex-column bd-highlight mb-3">
+                    <h2>会員の検索</h2>
+                    <form id="ajax-search-post" action="{% url 'cms:ajax_post_search' %}" method="GET">
+                        <input type="text" id="id_name_search">
+                        <button type="submit">検索</button>
+                    </form>
+                    <hr>
+                    <div>
+                        <ul id="member">
+                            {% for member in members %}
+                            <li>{{ member.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <input type="button" value="会員追加" class="btn btn-secondary" onclick="display_member()">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extrajs %}
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    // 送信ボタンで呼ばれる
+    $('#ajax-search-post').on('submit', e => {
+        // デフォルトのイベントをキャンセルし、ページ遷移しないように!
+        e.preventDefault();
+
+        $.ajax({
+            'url': '{% url "cms:ajax_post_search" %}',
+            'type': 'GET',
+            'data': {
+                'name': $('#id_name_search').val(),
+            },
+            'dataType': 'json'
+        }).done(response => {
+            // 記事欄を真っ白にする。
+            $('#member').empty();
+            response.member.forEach(function (value) {
+                const p = '<li>' + '<input type="checkbox" id="' + value["id"] + '" name="member_name" value="' + value["name"] + '">' + value["name"] + '</input></li>';
+                $('#member').append(p);
+            });
+
+            var elem = $('#search_member').find('[id^=memberId_]');
+            /** size関数を使って空判定 */
+            if (elem[0]) {
+                /** "空"でないときの処理 */
+                response.member.forEach(function (value) {
+                    //有効判断
+                    elem.each(function (index, element) {
+                        var id = $(element).attr("id").split('_');
+                        if (id[1] == value["id"]) {
+                            $("#" + value["id"]).prop('disabled', true);
+                            $("#" + value["id"]).prop('checked', true);
+                        }
+                    });
+                });
+            }
+        });
+    });
+
+    // プルダウンの取得　Ajax
+    function get_goods() {
+        $.ajax({
+            'url': '{% url "cms:ajax_get_goods" %}',
+            'type': 'GET',
+            'data': {
+                'category_id': $('[name=category]').val(),
+            },
+            'dataType': 'json'
+        }).done(response => {
+            // 選択欄を空にする。
+            $('[name=goods]').empty();
+            // option追加処理
+            if ($('[name=category]').val() != "0") {
+                response.goods.forEach(function (value) {
+                    // optionの追加
+                    var goods = { value: value["goods_id"], text: value["goods_name"] };
+                    var elem = $('<option>', goods);  //要素を生成
+                    $('#goods').append(elem);  //セレクトボックスに追加
+                });
+            } else {
+                // optionの追加
+                var goods = { value: "0", text: "選択してください" };
+                var elem = $('<option>', goods);  //要素を生成
+                $('#goods').append(elem);  //セレクトボックスに追加
+            }
+        });
+    };
+
+</script>
+
+
+{% endblock %}

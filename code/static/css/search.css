@@ -1,0 +1,92 @@
+div.content{
+    width: 100%;
+    margin: 0 auto;
+    list-style: none;
+    display: grid;
+    grid-template:
+        "...  ................. ..." 10px
+        "...  user_name         ..."
+        "...  ................. ..." 10px
+        "...  user_info         ..."
+        "...  ................. ..." 10px
+        "...  ages              ..."
+        "...  ................. ..." 10px
+        "...  visit_num         ..."
+        "...  ................. ..." 10px
+        "...  la_vi_date        ..."
+        "...  ................. ..." 10px
+        "...  visit_date_period ..."
+        "...  ................. ..." 10px
+        "...  menus             ..."
+        "...  ................. ..." 10px
+        "...  btn_search        ..."
+        "...  ................. ..." 10px
+        / 10px 1fr 10px;
+}
+
+div#user_name {
+    grid-area: user_name;
+}
+div#user_info {
+    grid-area: user_info;
+}
+div#ages {
+    grid-area: ages;
+}
+div#visit_num {
+    grid-area: visit_num;
+}
+div#la_vi_date {
+    grid-area: la_vi_date;
+}
+div#visit_date_period {
+    grid-area: visit_date_period;
+}
+div#menus {
+    grid-area: menus;
+}
+div#btn_search {
+    grid-area: btn_search;
+}
+
+div#menus{
+    margin: 0 auto;
+    display: grid;
+    grid-template:
+        "lbl_course ... lbl_sarada ... lbl_main ... lbl_desert ... lbl_drink" 1fr
+        ".......... ... .......... ... ........ ... .......... ... ........." 10px
+        "sel_course ... sel_sarada ... sel_main ... sel_desert ... sel_drink" 1fr
+        / 1fr 10px 1fr 10px 1fr 10px 1fr 10px 1fr;
+}
+
+label#lbl_course {
+    grid-area: lbl_course;
+}
+label#lbl_sarada {
+    grid-area: lbl_sarada;
+}
+label#lbl_main {
+    grid-area: lbl_main;
+}
+label#lbl_desert {
+    grid-area: lbl_desert;
+}
+label#lbl_drink {
+    grid-area: lbl_drink;
+}
+
+select#sel_course {
+    grid-area: sel_course;
+}
+select#sel_sarada {
+    grid-area: sel_sarada;
+}
+select#sel_main {
+    grid-area: sel_main;
+}
+select#sel_desert {
+    grid-area: sel_desert;
+}
+select#sel_drink {
+    grid-area: sel_drink;
+}

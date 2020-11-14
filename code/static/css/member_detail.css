@@ -1,0 +1,69 @@
+tr#content{
+    width: 100%;
+    margin: 0 auto;
+    list-style: none;
+    display: grid;
+    grid-template:
+        "...  ............. ... ............. ..." 10px
+        "...  lbl_name      ... txt_name      ..." 1fr
+        "...  ............. ... ............. ..." 10px
+        "...  lbl_name_read ... txt_name_read ..." 1fr
+        "...  ............. ... ............. ..." 10px
+        "...  lbl_address   ... txt_address   ..." 25px
+        "...  ............. ... ............. ..." 10px
+        "...  lbl_tel       ... txt_tel       ..." 25px
+        "...  ............. ... ............. ..." 10px
+        "...  lbl_email     ... txt_email     ..." 1fr
+        "...  ............. ... ............. ..." 10px
+        "...  lbl_age       ... txt_age       ..." 1fr
+        "...  ............. ... ............. ..." 10px
+        "...  lbl_remark    ... txt_remark    ..." 1fr
+        "...  ............. ... ............. ..." 10px
+        / 10px 1fr 10px 1fr 10px;
+}
+
+
+th#lbl_name {
+    grid-area: lbl_name;
+}
+th#lbl_name_read {
+    grid-area: lbl_name_read;
+}
+th#lbl_address {
+    grid-area: lbl_address;
+}
+th#lbl_tel {
+    grid-area: lbl_tel;
+}
+th#lbl_email {
+    grid-area: lbl_email;
+}
+th#lbl_age {
+    grid-area: lbl_age;
+}
+th#lbl_remark {
+    grid-area: lbl_remark;
+}
+
+
+td#txt_name {
+    grid-area: txt_name;
+}
+td#txt_name_read {
+    grid-area: txt_name_read;
+}
+td#txt_address {
+    grid-area: txt_address;
+}
+td#txt_tel {
+    grid-area: txt_tel;
+}
+td#txt_email {
+    grid-area: txt_email;
+}
+td#txt_age {
+    grid-area: txt_age;
+}
+td#txt_remark {
+    grid-area: txt_remark;
+}
